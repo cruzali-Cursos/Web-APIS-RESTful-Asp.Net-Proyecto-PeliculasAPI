@@ -10,6 +10,10 @@ namespace PeliculasAPI
         }
 
         public DbSet<Genero> Generos { get; set; }
+
+        // Se crea la tabla de Actores
+        public DbSet<Actor> Actores { get; set; }
+
     }
 
 
