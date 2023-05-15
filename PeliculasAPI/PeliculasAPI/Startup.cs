@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PeliculasAPI.Servicios;
 
 namespace PeliculasAPI
 {
@@ -16,7 +17,10 @@ namespace PeliculasAPI
         {
             // Add services to the container
             services.AddAutoMapper(typeof(Startup));
-            services.AddDbContext<ApplicationDbContextPeliculas>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // Configurar el servicio Storage
+            services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosAzure>();
+            services.AddDbContext<ApplicationDbContextPeliculas>(options => 
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddEndpointsApiExplorer();
         }
