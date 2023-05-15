@@ -18,7 +18,8 @@ namespace PeliculasAPI
             // Add services to the container
             services.AddAutoMapper(typeof(Startup));
             // Configurar el servicio Storage
-            services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosAzure>();
+            services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
+            services.AddHttpContextAccessor();
             services.AddDbContext<ApplicationDbContextPeliculas>(options => 
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
@@ -33,6 +34,7 @@ namespace PeliculasAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
